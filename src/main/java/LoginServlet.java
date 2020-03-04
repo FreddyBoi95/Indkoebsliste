@@ -4,6 +4,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +16,12 @@ public class LoginServlet extends HttpServlet {
         //Holder forbindelsen så længe serveren kører (applikation scope)
         ServletContext servletContext = getServletContext();
 
+        //Her opretter jeg session
+        HttpSession session = request.getSession();
+
         String navn = request.getParameter("Navn");
         String kodeord = request.getParameter("Kodeord");
+
 
         if (servletContext.getAttribute("brugerMap") == null) {
             //Lav et map af navne, hvis der ikke er nogle
@@ -48,6 +53,9 @@ public class LoginServlet extends HttpServlet {
             }
 
             //todo Gå til huskelisten
+            //Sætter brugernavnet på session
+            session.setAttribute("besked", "Du er logget ind med navnet " + navn);
+
             request.getRequestDispatcher("WEB-INF/HuskeListe.jsp").forward(request,response);
         }
 

@@ -13,9 +13,12 @@
 <body>
 
 <h1>Velkommen til din webshop.</h1>
+
 <br>
 <br>
 
+${sessionScope.besked}
+<br>
 ${requestScope.besked}
 <br>
 
