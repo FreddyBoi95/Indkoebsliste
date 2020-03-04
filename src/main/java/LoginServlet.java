@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -34,6 +36,16 @@ public class LoginServlet extends HttpServlet {
             servletContext.setAttribute("brugerMap", brugerMap);
         }
 
+        if (((Set<String>)servletContext.getAttribute("aktiveBrugere")) == null) {
+            Set<String> aktiveBrugere = new HashSet<>();
+            servletContext.setAttribute("aktiveBrugere", aktiveBrugere);
+        }
+
+        if (!(session.getAttribute("besked") == null)) {
+
+            request.getRequestDispatcher("WEB-INF/HuskeListe.jsp").forward(request, response);
+        }
+
         if (!((Map<String, String>) servletContext.getAttribute("brugerMap")).containsKey(navn)) {
 
             //todo Gå til login side
@@ -52,16 +64,21 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/Admin.jsp").forward(request,response);
             }
 
-            //todo Gå til huskelisten
-            //Sætter brugernavnet på session
-            session.setAttribute("besked", "Du er logget ind med navnet " + navn);
+            if (!((Set<String>)servletContext.getAttribute("aktiveBrugere")).contains(navn)) {
 
-            request.getRequestDispatcher("WEB-INF/HuskeListe.jsp").forward(request,response);
+                ((Set<String>)servletContext.getAttribute("aktiveBrugere")).add(navn);
+
+                //Sætter brugernavnet på session
+                session.setAttribute("besked", "Du er logget ind med navnet " + navn);
+                request.getRequestDispatcher("WEB-INF/HuskeListe.jsp").forward(request,response);
+            }
         }
 
         //todo Gå til login dvs. index siden
 
-        request.setAttribute("besked", "Din kode var forkert, prøv igen.");
+        request.setAttribute("besked", "Der gik noget galt. Prøv igen.");
+        request.setAttribute("navn", navn);
+
         request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 
