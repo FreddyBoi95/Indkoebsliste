@@ -40,6 +40,8 @@ public class LoginServlet extends HttpServlet {
         if (((Map<String, String>) servletContext.getAttribute("brugerMap")).get(navn).equalsIgnoreCase(kodeord)) {
 
 
+
+
             //todo Gå til adminside
             if (navn.equalsIgnoreCase("admin")) {
                 request.getRequestDispatcher("WEB-INF/Admin.jsp").forward(request,response);

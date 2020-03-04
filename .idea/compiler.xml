@@ -6,13 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Uge8_Indkøbsliste" />
+        <module name="Uge8_Indkoebsliste" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Uge8_Indkøbsliste" options="-endorseddirs &quot;C:\Users\frede\Java Kode\2.Semester\Uge8_Indkøbsliste\target/endorsed&quot;" />
+      <module name="Uge8_Indkoebsliste" options="-endorseddirs &quot;C:\Users\frede\Java Kode\2.Semester\Uge8_Indkoebsliste\target/endorsed&quot;" />
     </option>
   </component>
 </project>
